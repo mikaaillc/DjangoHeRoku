@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+      crossorigin="anonymous"
+    />
+    <title>TODO APP</title>
+  </head>
+  <body>
+    <div style="margin-left: 300px; margin-top: 50px">
+      <h4>TODO APP</h4>
+
+      <form action="addTodo" method="post">
+        <div class="form-group">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label class="form-label">GÖREV</label>
+            <div class="col-sm-6">
+              <input type="content" name="content" class="form-control" />
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">SAVE</button>
+      </form>
+    </div>
+    <hr />
+    {% if todos %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">Todo Görev</th>
+          <th scope="col">Durum</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for todo in todos %}
+        <tr>
+          <th scope="row">{{todo.id}}</th>
+          <td>{{todo.content}}</td>
+          {% if todo.completed %}
+          <td>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckChecked"
+                checked
+              />
+            </div>
+          </td>
+          {% else %}
+          <td>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckChecked"
+              />
+            </div>
+          </td>
+          {% endif %}
+          <td><a href="update/{{todo.id}}" class="btn btn-success">DONE</a></td>
+          <td><a href="delete/{{todo.id}}" class="btn btn-danger">DELETE</a></td>
+          
+        </tr>
+        {% endfor %}
+      </tbody>
+      {% else %}
+      <div class="alert alert-danger" role="alert">Görev bulumamaktadır!</div>
+      {% endif %}
+    </table>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+      integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
+      integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
